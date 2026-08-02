@@ -1,0 +1,8 @@
+{
+  "id": "Translucent_UI",
+  "name": "Translucent UI",
+  "version": "1.1.0",
+  "entry": "main.lua",
+  "api": 2,
+  "permissions": ["engine_internals"]
+}
