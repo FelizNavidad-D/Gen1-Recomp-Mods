@@ -1,0 +1,7 @@
+{
+  "id": "DexNav",
+  "name": "DexNav",
+  "version": "1.2.0",
+  "entry": "main.lua",
+  "api": 2
+}
