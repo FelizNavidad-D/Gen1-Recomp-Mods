@@ -440,22 +440,23 @@ if #candidates > 0 then
             end
           end
           
-local hasWalkerSprite = (pcfSpritePath ~= nil)
+          local hasWalkerSprite = (pcfSpritePath ~= nil)
 
-n.draw = function(n_self, camX, camY)
-  if hasWalkerSprite and n_self.sprite then
-    -- caminho normal de qualquer NPC: pose() já calcula facing/phase certos
-    local sprite, px, py, facing, phase, flip = n_self:pose()
-    sprite:draw(px, py, camX, camY, facing, phase, flip)
-  else
-    -- sem PokePCFollowers: sem arte direcional, mantém o ícone estático de bounce
-    n_self.animCounter = (n_self.animCounter or 0) + 1
-    local bob = (n_self.moving or n_self.marching) and (math.floor((n_self.progress or 0) / 4) % 2 == 0 and 1 or 0) or 0
-    local screenX = n_self.px - camX
-    local screenY = n_self.py - camY - 4 - bob
-    drawBoxIcon(Game, {species=n_self.dexNavSpecies}, screenX, screenY, true, n_self.animCounter, true)
-  end
-end
+          n.draw = function(n_self, camX, camY)
+            if hasWalkerSprite and n_self.sprite then
+              -- PokePCFollowers compatibility: real 6-frame walker sprite,
+              -- rendered through the same pose()+sprite:draw() path as any
+              -- native NPC, so facing/animation follow scriptMove() properly.
+              local sprite, px, py, facing, phase, flip = n_self:pose()
+              sprite:draw(px, py, camX, camY, facing, phase, flip)
+            else
+              n_self.animCounter = (n_self.animCounter or 0) + 1
+              local bob = (n_self.moving or n_self.marching) and (math.floor((n_self.progress or 0) / 4) % 2 == 0 and 1 or 0) or 0
+              local screenX = n_self.px - camX
+              local screenY = n_self.py - camY - 4 - bob
+              drawBoxIcon(Game, {species=n_self.dexNavSpecies}, screenX, screenY, true, n_self.animCounter, true)
+            end
+          end
           
           local orig_pose = n.pose
           n.pose = function(self)
