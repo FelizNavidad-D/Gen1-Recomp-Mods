@@ -1,0 +1,14 @@
+{
+  "id": "Dynamic_Scaling",
+  "name": "Dynamic Scaling",
+  "version": "1.0.6",
+  "description": "Dynamically scales trainer Pokemon levels based on progress.",
+  "author": "FelizNavidad-D",
+  "entry": "main.lua",
+  "api": 2,
+  "engineVersion": ">=0.1.89",
+  "games": [
+    "gen1",
+    "gen2"
+  ]
+}
